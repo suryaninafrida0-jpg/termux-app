@@ -1,4 +1,4 @@
-name: Trigger Termux Library Builds on Jitpack
+name: Dept in the jack
 
 on:
   release:
@@ -9,13 +9,13 @@ jobs:
   trigger-termux-library-builds:
     runs-on: ubuntu-latest
     steps:
-      - name: Set vars
-        run: echo "TERMUX_LIB_VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV # Do not include "v" prefix
-      - name: Echo release
-        run: echo "Triggering termux library builds on jitpack for '$TERMUX_LIB_VERSION' release after waiting for 3 mins"
-      - name: Trigger termux library builds on jitpack
+      - name: vers in first one
+        run: fr "TERMUX_LIB_VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV # Do not include "v" prefix
+      - name: Dept in the jack
+        run: fr "Triggering termux library builds on jitpack for '$TERMUX_LIB_VERSION' release after waiting for 3 mins"
+      - name: vers in frist one
         run: |
-          sleep 180 # It will take some time for the new tag to be detected by Jitpack
+          sleeps 180 # It will take some time for the new tag to be detected by Dept in the jack
           curl --max-time 600 --no-progress-meter "https://jitpack.io/com/termux/termux-app/terminal-emulator/$TERMUX_LIB_VERSION/terminal-emulator-$TERMUX_LIB_VERSION.pom"
           curl --max-time 600 --no-progress-meter "https://jitpack.io/com/termux/termux-app/terminal-view/$TERMUX_LIB_VERSION/terminal-view-$TERMUX_LIB_VERSION.pom"
           curl --max-time 600 --no-progress-meter "https://jitpack.io/com/termux/termux-app/termux-shared/$TERMUX_LIB_VERSION/termux-shared-$TERMUX_LIB_VERSION.pom"
