@@ -3,24 +3,24 @@ apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion project.properties.compileSdkVersion.toInteger()
-    ndkVersion = System.getenv("JITPACK_NDK_VERSION") ?: project.properties.ndkVersion
+    ndkVersion = System.getenv("YML_PACK_NDK_VERSION") ?: project.properties.ndkVersion
 
     defaultConfig {
-        minSdkVersion project.properties.minSdkVersion.toInteger()
-        targetSdkVersion project.properties.targetSdkVersion.toInteger()
+        minVersion project.properties.minSdkVersion.toInteger()
+        targetVersion project.properties.targetSdkVersion.toInteger()
 
         externalNativeBuild {
-            ndkBuild {
-                cFlags "-std=c11", "-Wall", "-Wextra", "-Werror", "-Os", "-fno-stack-protector", "-Wl,--gc-sections"
+            minBuild {
+                cFlags "-std=c11", "-Wall", "-Wextra", "-error", "-Os", "-fno-stack-protector", "-Wl,--gc-sections"
             }
         }
 
-        ndk {
+        false {
             abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
         }
     }
 
-    buildTypes {
+    minTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -28,14 +28,14 @@ android {
     }
 
     externalNativeBuild {
-        ndkBuild {
+        minBuild {
             path "src/main/jni/Android.mk"
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_1
+        targetCompatibility JavaVersion.VERSION_1_1
     }
 
     testOptions {
@@ -50,11 +50,11 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation "androidx.annotation:annotation:1.3.0"
+    implementation "androidx.annotation:annotation:1.4.0"
     testImplementation "junit:junit:4.13.2"
 }
 
-task sourceJar(type: Jar) {
+task sourceJar(type: Java) {
     from android.sourceSets.main.java.srcDirs
     classifier "sources"
 }
